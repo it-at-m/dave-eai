@@ -1,0 +1,5 @@
+VON;NACH;TYPE;STARTUHRZEIT;ENDEUHRZEIT;PKW;LKW;LASTZUEGE;BUSSE;KRAFTRAEDER;FAHRRADFAHRER;FUSSGAENGER;PKW_EINHEITEN;GESAMT;KFZ;SV;GV;SV%;GV%;NUMMER_ZAEHLSTELLE;STADTBEZIRK;STADTBEZIRK_NUMMER;ZAEHLDATUM;ZAEHLART;KREUZUNGSNAME;SONDERZAEHLUNG;ZAEHLSITUATION;ZAEHLSITUATION_ERWEITERT
+1;;SpStdBlock Rad;07:45;08:45;133;0;0;9;4;54;;183;200;146;9;0;6.2;0.0;172201;Obergiesing-Fasangarten;17;2014-07-17;N;Minnewitstr. - Fasangartenstr. - Albert-Schweitzer-Str.;false;;
+2;;SpStdBlock Rad;07:45;08:45;275;8;0;3;8;27;;314;321;294;11;8;3.7;2.7;172201;Obergiesing-Fasangarten;17;2014-07-17;N;Minnewitstr. - Fasangartenstr. - Albert-Schweitzer-Str.;false;;
+3;;SpStdBlock Rad;07:45;08:45;145;4;0;3;5;36;;177;193;157;7;4;4.5;2.6;172201;Obergiesing-Fasangarten;17;2014-07-17;N;Minnewitstr. - Fasangartenstr. - Albert-Schweitzer-Str.;false;;
+4;;SpStdBlock Rad;07:45;08:45;306;7;0;0;8;73;;346;394;321;7;7;2.2;2.2;172201;Obergiesing-Fasangarten;17;2014-07-17;N;Minnewitstr. - Fasangartenstr. - Albert-Schweitzer-Str.;false;;
