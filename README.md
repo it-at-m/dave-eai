@@ -7,7 +7,7 @@ Bitte beachten Sie, dass diese Komponente nicht ohne das [dave-backend](https://
 
 Um einen genaueren Überblick über die verschiedenen Komponenten der Anwendung und deren Zusammenhänge zu bekommen, bitte die Dokumentation des [dave-backend](https://github.com/it-at-m/dave-backend) zu Hilfe nehmen.
 
-Diese EAI dient innerhalb der LHM dazu, Schnittstellen zu anderen Systemen zur Verfügung zu stellen. Das geschieht indem Daten direkt im CSV- oder JSON-Format ausgegeben werden. Folgende Funktionen werden angeboten:
+Diese EAI dient innerhalb der LHM dazu, für DAVe Schnittstellen zu anderen Systemen zur Verfügung zu stellen. Das geschieht indem Daten direkt im CSV- oder JSON-Format ausgegeben werden. Folgende Funktionen werden angeboten:
 -	Ausgabe aller Zählstellen mit Koordinaten als CSV-Datei
 - Ausgabe der Spitzenstunde einer bestimmten Zählung als CSV-Datei
 - Daten aller Zählstellen und Zählungen des angegebenen Monats werden im JSON-Format zurückgegeben
