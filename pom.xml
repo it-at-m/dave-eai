@@ -5,7 +5,7 @@
 
     <groupId>de.muenchen.dave</groupId>
     <artifactId>dave-eai</artifactId>
-    <version>1.3.1-SNAPSHOT</version>
+    <version>1.3.1</version>
     <name>DAVe-EAI</name>
     <description>Basic Enterprise Application Integration (EAI) von DAVe</description>
 
