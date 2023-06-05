@@ -20,5 +20,4 @@ public class EaiApplication {
         SpringApplication.run(EaiApplication.class, args);
     }
 
-
 }
