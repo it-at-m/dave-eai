@@ -8,19 +8,12 @@ import lombok.ToString;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
 
-import java.math.BigDecimal;
-
-
 @RequiredArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
-@CsvRecord(
-        generateHeaderColumns = true,
-        separator = ";",
-        crlf = "UNIX"
-)
+@CsvRecord(generateHeaderColumns = true, separator = ";", crlf = "UNIX")
 public class LadeAuswertungSpitzenstundeDTO {
 
     @DataField(pos = 1, columnName = "VON")

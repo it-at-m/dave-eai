@@ -29,13 +29,13 @@ public class AuswertungZaehlstellenKoordinateRouteBuilder extends RouteBuilder {
     private final BindyCsvDataFormat csv = new BindyCsvDataFormat(LadeAuswertungZaehlstelleKoordinateDTO.class);
 
     @Override
-    public void configure()  {
+    public void configure() {
 
         errorHandler(
-                deadLetterChannel(ROUTE_EXCEPTION).useOriginalMessage()
-        );
+                deadLetterChannel(ROUTE_EXCEPTION).useOriginalMessage());
         exceptionHandling();
 
+        // @formatter:off
         from("servlet:lade-auswertung-zaehlstellen-koordinate")
                 .to("http://{{backend.uri}}/lade-auswertung-zaehlstellen-koordinate?bridgeEndpoint=true&throwExceptionOnFailure=false")
                 .choice()
@@ -57,12 +57,15 @@ public class AuswertungZaehlstellenKoordinateRouteBuilder extends RouteBuilder {
                         HEADER_NAME_CONTENT_TYPE,
                         constant(HEADER_VALUE_CONTENT_TYPE_TEXT_CSV)
                 );
+        // @formatter:on
 
     }
 
     private void exceptionHandling() {
+        // @formatter:off
         from(ROUTE_EXCEPTION)
             .to("log:de.muenchen.dave?showAll=true&multiline=true");
+        // @formatter:on
     }
 
 }

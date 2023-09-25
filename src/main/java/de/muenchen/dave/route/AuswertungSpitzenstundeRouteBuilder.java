@@ -29,13 +29,13 @@ public class AuswertungSpitzenstundeRouteBuilder extends RouteBuilder {
     private final BindyCsvDataFormat csv = new BindyCsvDataFormat(LadeAuswertungSpitzenstundeDTO.class);
 
     @Override
-    public void configure()  {
+    public void configure() {
 
         errorHandler(
-                deadLetterChannel(ROUTE_EXCEPTION).useOriginalMessage()
-        );
+                deadLetterChannel(ROUTE_EXCEPTION).useOriginalMessage());
         exceptionHandling();
 
+        // @formatter:off
         from("servlet:lade-auswertung-spitzenstunde")
                 .to("http://{{backend.uri}}/lade-auswertung-spitzenstunde?bridgeEndpoint=true&throwExceptionOnFailure=false")
                 .choice()
@@ -57,12 +57,14 @@ public class AuswertungSpitzenstundeRouteBuilder extends RouteBuilder {
                         HEADER_NAME_CONTENT_TYPE,
                         constant(HEADER_VALUE_CONTENT_TYPE_TEXT_CSV)
                 );
-
+        // @formatter:on
     }
 
     private void exceptionHandling() {
+        // @formatter:off
         from(ROUTE_EXCEPTION)
             .to("log:de.muenchen.dave?showAll=true&multiline=true");
+        // @formatter:on
     }
 
 }

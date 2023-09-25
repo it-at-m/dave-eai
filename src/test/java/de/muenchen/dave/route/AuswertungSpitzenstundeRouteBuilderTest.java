@@ -20,9 +20,8 @@ import org.springframework.test.context.ActiveProfiles;
 import java.io.File;
 import java.io.IOException;
 
-
 @SpringBootTest()
-@ActiveProfiles(profiles = {"test"})
+@ActiveProfiles(profiles = { "test" })
 @CamelSpringBootTest
 class AuswertungSpitzenstundeRouteBuilderTest {
 

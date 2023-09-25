@@ -8,17 +8,12 @@ import lombok.ToString;
 import org.apache.camel.dataformat.bindy.annotation.CsvRecord;
 import org.apache.camel.dataformat.bindy.annotation.DataField;
 
-
 @RequiredArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
-@CsvRecord(
-        generateHeaderColumns = true,
-        separator = ";",
-        crlf = "UNIX"
-)
+@CsvRecord(generateHeaderColumns = true, separator = ";", crlf = "UNIX")
 public class LadeAuswertungZaehlstelleKoordinateDTO {
 
     @DataField(pos = 1, columnName = "ZAEHLSTELLE_NUMMER")
