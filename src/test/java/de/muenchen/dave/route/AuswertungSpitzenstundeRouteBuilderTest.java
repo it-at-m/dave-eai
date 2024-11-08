@@ -21,7 +21,7 @@ import java.io.File;
 import java.io.IOException;
 
 @SpringBootTest()
-@ActiveProfiles(profiles = { "test" })
+@ActiveProfiles(profiles = { "unittest" })
 @CamelSpringBootTest
 class AuswertungSpitzenstundeRouteBuilderTest {
 
