@@ -32,4 +32,6 @@ camel:
   main:
     tracing: false
   springboot:
+    # Camel läuft in einer eigenen Spring-Boot-Instanz
+    # https://camel.apache.org/camel-spring-boot/4.8.x/index.html#_making_sure_camel_context_is_running_in_standalone_spring_boot
     main-run-controller: true
