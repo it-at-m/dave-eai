@@ -1,7 +1,3 @@
-/*
- * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik
- * der Landeshauptstadt München, 2021
- */
 package de.muenchen.dave.route;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,7 +17,7 @@ import java.io.File;
 import java.io.IOException;
 
 @SpringBootTest()
-@ActiveProfiles(profiles = { "test" })
+@ActiveProfiles(profiles = { "unittest" })
 @CamelSpringBootTest
 class AuswertungSpitzenstundeRouteBuilderTest {
 

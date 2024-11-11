@@ -24,11 +24,14 @@ server:
 
 
 camel:
-  component:
-    servlet:
+  servlet:
+    mapping:
       # Basepath für Servlet-Endpunkt:
-      # https://camel.apache.org/components/3.7.x/servlet-component.html#_usage_with_spring_boot
-      mapping.contextpath: /*
-  springboot:
+      # https://camel.apache.org/components/4.8.x/servlet-component.html#_spring_boot_auto_configuration
+      context-path: /*
+  main:
     tracing: false
+  springboot:
+    # Camel läuft in einer eigenen Spring-Boot-Instanz
+    # https://camel.apache.org/camel-spring-boot/4.8.x/index.html#_making_sure_camel_context_is_running_in_standalone_spring_boot
     main-run-controller: true
