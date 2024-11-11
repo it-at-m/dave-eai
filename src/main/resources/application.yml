@@ -29,6 +29,7 @@ camel:
       # Basepath für Servlet-Endpunkt:
       # https://camel.apache.org/components/4.8.x/servlet-component.html#_spring_boot_auto_configuration
       context-path: /*
-  springboot:
+  main:
     tracing: false
+  springboot:
     main-run-controller: true
