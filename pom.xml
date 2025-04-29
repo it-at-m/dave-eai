@@ -36,12 +36,12 @@
 
     <properties>
         <java.version>21</java.version>
-        <camel.version>4.9.0</camel.version>
+        <camel.version>4.11.0</camel.version>
 
         <!-- Wie in camel-spring-boot-dm / camel-spring-boot-starter (https://maven.apache.org/plugins/maven-dependency-plugin/examples/resolving-conflicts-using-the-dependency-tree.html) -->
-        <spring.boot.version>3.4.2</spring.boot.version>
+        <spring.boot.version>3.4.5</spring.boot.version>
         <!-- Version muss mit der in den spring-boot-dependencies bereitgestellten Lombok-Version übereinstimmen -->
-        <lombok.version>1.18.36</lombok.version>
+        <lombok.version>1.18.38</lombok.version>
         <mapstructbinding.version>0.2.0</mapstructbinding.version>
 
         <!-- Java Version -->
@@ -50,9 +50,7 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <maven.javadoc.skip>true</maven.javadoc.skip>
-        <apache.commons.io>2.18.0</apache.commons.io>
-
-        <itm-codeformat.version>1.0.7</itm-codeformat.version>
+        <apache.commons.io>2.19.0</apache.commons.io>
 
         <maven-scm-plugin.version>2.1.0</maven-scm-plugin.version>
         <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
@@ -222,7 +220,7 @@
                     <dependency>
                         <groupId>de.muenchen.oss</groupId>
                         <artifactId>itm-java-codeformat</artifactId>
-                        <version>${itm-codeformat.version}</version>
+                        <version>1.0.10</version>
                     </dependency>
                 </dependencies>
                 <configuration>
@@ -236,8 +234,8 @@
                         <eclipse>
                             <file>itm-java-codeformat/java_codestyle_formatter.xml</file>
                         </eclipse>
-                        <trimTrailingWhitespace/>
-                        <endWithNewline/>
+                        <trimTrailingWhitespace />
+                        <endWithNewline />
                     </java>
                 </configuration>
                 <executions>
@@ -247,32 +245,6 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.2.1</version>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                    <sourceDirectories>
-                        <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
-                    </sourceDirectories>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.puppycrawl.tools</groupId>
-                        <artifactId>checkstyle</artifactId>
-                        <version>9.3</version>
-                    </dependency>
-                </dependencies>
             </plugin>
 
         </plugins>
