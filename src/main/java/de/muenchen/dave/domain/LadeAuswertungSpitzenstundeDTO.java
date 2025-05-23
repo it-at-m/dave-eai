@@ -108,21 +108,21 @@ public class LadeAuswertungSpitzenstundeDTO {
     private Integer pkwEinheiten;
 
     @DataField(pos = 14, columnName = "GESAMT")
-    public String gesamt;
+    private String gesamt;
 
     @DataField(pos = 15, columnName = "KFZ")
-    public String kfz;
+    private String kfz;
 
     @DataField(pos = 16, columnName = "SV")
-    public String schwerverkehr;
+    private String schwerverkehr;
 
     @DataField(pos = 17, columnName = "GV")
-    public String gueterverkehr;
+    private String gueterverkehr;
 
     @DataField(pos = 18, columnName = "SV%")
-    public String anteilSchwerverkehrAnKfzProzent;
+    private String anteilSchwerverkehrAnKfzProzent;
 
     @DataField(pos = 19, columnName = "GV%")
-    public String anteilGueterverkehrAnKfzProzent;
+    private String anteilGueterverkehrAnKfzProzent;
 
 }
