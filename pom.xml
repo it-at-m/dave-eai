@@ -19,6 +19,7 @@
         <!-- Version muss mit der in den spring-boot-dependencies bereitgestellten Lombok-Version übereinstimmen -->
         <lombok.version>1.18.38</lombok.version>
         <mapstructbinding.version>0.2.0</mapstructbinding.version>
+        <logstash.encoder>8.1</logstash.encoder>
 
         <!-- Java Version -->
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -79,6 +80,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash.encoder}</version>
         </dependency>
 
         <!-- Camel -->
