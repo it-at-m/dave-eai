@@ -4,18 +4,13 @@
      have priority over the log level maintained in this file.  -->
 <configuration>
 
-
     <springProperty scope="context" name="springAppName" source="spring.application.name"/>
 
-
-    <springProfile name="local,unittest">
-
-        <!-- Log appender -->
+    <springProfile name="local | unittest | debugging">
         <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
             <encoder>
                 <pattern>
-                    %date{yyyy.MM.dd HH:mm:ss.SSS} | ${springAppName} | TraceId: %X{traceId:-} |
-                    SpanId: %X{spanId:-}] |
+                    %date{yyyy.MM.dd HH:mm:ss.SSS} | ${springAppName} | TraceId: %X{traceId:-} | SpanId: %X{spanId:-}] |
                     %level | [%thread] | %logger{0} | [%file : %line] - %msg%n
                 </pattern>
             </encoder>
@@ -23,54 +18,19 @@
 
         <!-- Logger -->
         <logger name="de.muenchen.dave"
-                level="info"
-                additivity="false">
-            <appender-ref ref="STDOUT"/>
-        </logger>
-
-        <!-- Logger usage -->
-        <root level="info">
-            <appender-ref ref="STDOUT"/>
-        </root>
-
-    </springProfile>
-
-
-    <springProfile name="dev,kon,demo">
-
-        <!-- Log appender -->
-        <appender name="JSON_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-            <encoder class="net.logstash.logback.encoder.LogstashEncoder">
-                <throwableConverter
-                        class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
-                    <!-- default max size of one log line in docker is 16kb - UTF8 ~ 1 Character = 1 Byte -->
-                    <!-- therefore limit stack_traces to a maximum of 8192 characters (to leave room for the rest of the message) -->
-                    <maxLength>8192</maxLength>
-                    <exclude>sun\.reflect\..*\.invoke.*</exclude>
-                    <exclude>net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
-                    <rootCauseFirst>true</rootCauseFirst>
-                </throwableConverter>
-            </encoder>
-        </appender>
-
-        <!-- Logger -->
-        <logger name="de.muenchen.dave"
                 level="debug"
                 additivity="false">
-            <appender-ref ref="JSON_STDOUT"/>
+            <appender-ref ref="STDOUT" />
         </logger>
 
         <!-- Logger usage -->
         <root level="info">
-            <appender-ref ref="JSON_STDOUT"/>
+            <appender-ref ref="STDOUT" />
         </root>
 
     </springProfile>
 
-
-    <springProfile name="prod">
-
-        <!-- Log appender -->
+    <springProfile name="!local &amp; !unittest &amp; !debugging">
         <appender name="JSON_STDOUT" class="ch.qos.logback.core.ConsoleAppender">
             <encoder class="net.logstash.logback.encoder.LogstashEncoder">
                 <throwableConverter
@@ -85,19 +45,11 @@
             </encoder>
         </appender>
 
-        <!-- Logger -->
-        <logger name="de.muenchen.dave"
-                level="info"
-                additivity="false">
-            <appender-ref ref="JSON_STDOUT"/>
-        </logger>
-
         <!-- Logger usage -->
         <root level="info">
-            <appender-ref ref="JSON_STDOUT"/>
+            <appender-ref ref="JSON_STDOUT" />
         </root>
 
     </springProfile>
-
 
 </configuration>
