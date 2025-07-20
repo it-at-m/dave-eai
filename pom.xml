@@ -27,7 +27,7 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <maven.javadoc.skip>true</maven.javadoc.skip>
-        <apache.commons.io>2.19.0</apache.commons.io>
+        <apache.commons.io>2.20.0</apache.commons.io>
 
         <maven-scm-plugin.version>2.1.0</maven-scm-plugin.version>
         <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
