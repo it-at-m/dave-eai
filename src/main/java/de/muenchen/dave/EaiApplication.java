@@ -1,7 +1,3 @@
-/*
- * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik
- * der Landeshauptstadt München, 2016
- */
 package de.muenchen.dave;
 
 import org.springframework.boot.SpringApplication;
@@ -16,9 +12,8 @@ public class EaiApplication {
     /**
      * Startet die Anwendung.
      */
-    public static void main(String[] args) {
+    public static void main(final String[] args) {
         SpringApplication.run(EaiApplication.class, args);
     }
-
 
 }

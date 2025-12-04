@@ -1,11 +1,9 @@
-/*
- * Copyright (c): it@M - Dienstleister für Informations- und Telekommunikationstechnik
- * der Landeshauptstadt München, 2021
- */
 package de.muenchen.dave.route;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.File;
+import java.io.IOException;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -17,12 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.io.File;
-import java.io.IOException;
-
-
 @SpringBootTest()
-@ActiveProfiles(profiles = {"test"})
+@ActiveProfiles(profiles = { "unittest" })
 @CamelSpringBootTest
 class AuswertungSpitzenstundeRouteBuilderTest {
 
@@ -38,12 +32,12 @@ class AuswertungSpitzenstundeRouteBuilderTest {
 
     @Test
     void testJsonToCsv() throws IOException {
-        var jsonInput = FileUtils.readFileToString(new File(JSON_TEST_FILE), "UTF-8");
-        var csvOutputExpected = FileUtils.readFileToString(new File(CSV_TEST_FILE), "UTF-8");
+        final var jsonInput = FileUtils.readFileToString(new File(JSON_TEST_FILE), "UTF-8");
+        final var csvOutputExpected = FileUtils.readFileToString(new File(CSV_TEST_FILE), "UTF-8");
 
-        var exchange = ExchangeBuilder.anExchange(camelContext).build();
+        final var exchange = ExchangeBuilder.anExchange(camelContext).build();
         exchange.getIn().setBody(jsonInput);
-        var csvResult = producer.send(exchange).getIn().getBody(String.class);
+        final var csvResult = producer.send(exchange).getIn().getBody(String.class);
         assertEquals(csvOutputExpected, csvResult);
     }
 

@@ -5,26 +5,42 @@
 
     <groupId>de.muenchen.dave</groupId>
     <artifactId>dave-eai</artifactId>
-    <version>1.3.1</version>
+    <version>3.0.0</version>
     <name>DAVe-EAI</name>
     <description>Basic Enterprise Application Integration (EAI) von DAVe</description>
 
 
     <properties>
-
-        <camel.version>3.7.0</camel.version>
+        <java.version>21</java.version>
+        <camel.version>4.12.0</camel.version>
 
         <!-- Wie in camel-spring-boot-dm / camel-spring-boot-starter (https://maven.apache.org/plugins/maven-dependency-plugin/examples/resolving-conflicts-using-the-dependency-tree.html) -->
-        <spring.boot.version>2.4.0</spring.boot.version>
+        <spring.boot.version>3.5.4</spring.boot.version>
+        <!-- Version muss mit der in den spring-boot-dependencies bereitgestellten Lombok-Version übereinstimmen -->
+        <lombok.version>1.18.38</lombok.version>
+        <mapstructbinding.version>0.2.0</mapstructbinding.version>
+        <logstash.encoder>8.1</logstash.encoder>
 
         <!-- Java Version -->
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
-        <maven.compiler.release>11</maven.compiler.release>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.release>${java.version}</maven.compiler.release>
 
         <maven.javadoc.skip>true</maven.javadoc.skip>
-        <apache.commons.io>2.8.0</apache.commons.io>
+        <apache.commons.io>2.20.0</apache.commons.io>
 
+        <maven-scm-plugin.version>2.1.0</maven-scm-plugin.version>
+        <maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
+        <maven.compiler.plugin.version>3.14.0</maven.compiler.plugin.version>
+
+        <!-- Linting & Formatting -->
+        <spotless-maven-plugin.version>2.44.5</spotless-maven-plugin.version>
+        <itm-java-codeformat.version>1.0.10</itm-java-codeformat.version>
+
+        <!-- Spotless P2 Mirror configuration (e.g. required when using company internal registry -->
+        <p2.username /> <!-- must be empty, override via Maven settings.xml if needed -->
+        <p2.password /> <!-- must be empty, override via Maven settings.xml if needed -->
+        <p2.mirror>download.eclipse.org</p2.mirror>
     </properties>
 
     <scm>
@@ -64,6 +80,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>net.logstash.logback</groupId>
+            <artifactId>logstash-logback-encoder</artifactId>
+            <version>${logstash.encoder}</version>
         </dependency>
 
         <!-- Camel -->
@@ -118,18 +141,6 @@
     </dependencies>
 
     <build>
-        <!--
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>${maven.release.plugin}</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-        -->
-
         <plugins>
             <!-- Spring Boot Fat Jar erzeugen -->
             <plugin>
@@ -139,10 +150,6 @@
                 <configuration>
                     <!-- Muss Aenderungen der Package Namen korrigiert werden -->
                     <mainClass>de.muenchen.dave.EaiApplication</mainClass>
-                    <!-- Executable JAR erzeugen, das mit auch Linux init.d
-                        oder systemd auf der Console (./my-application.jar) gestartet werden kann
-                        (https://docs.spring.io/spring-boot/docs/current/reference/html/deployment-install.html)
-                        <executable>true</executable> -->
                 </configuration>
                 <executions>
                     <execution>
@@ -156,22 +163,28 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.1</version>
+                <version>${maven.compiler.plugin.version}</version>
                 <configuration>
                     <release>${maven.compiler.release}</release>
                     <annotationProcessorPaths>
                         <path>
                             <groupId>org.projectlombok</groupId>
                             <artifactId>lombok</artifactId>
-                            <version>1.18.16</version>
+                            <version>${lombok.version}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>${mapstructbinding.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>${maven-surefire-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>default-test</id>
@@ -184,11 +197,54 @@
             </plugin>
 
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-scm-plugin</artifactId>
-                <version>1.10.0</version>
+                <version>${maven-scm-plugin.version}</version>
                 <configuration>
                     <tag>RT-REL-${project.version}</tag>
                 </configuration>
+            </plugin>
+
+            <!-- Linting -->
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${spotless-maven-plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>de.muenchen.oss</groupId>
+                        <artifactId>itm-java-codeformat</artifactId>
+                        <version>${itm-java-codeformat.version}</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <java>
+                        <includes>
+                            <include>src/main/java/**/*.java</include> <!-- Check application code -->
+                            <include>src/test/java/**/*.java</include> <!-- Check application tests code -->
+                        </includes>
+                        <eclipse>
+                            <file>itm-java-codeformat/java_codestyle_formatter.xml</file>
+                            <p2Mirrors>
+                                <p2Mirror>
+                                    <prefix>https://download.eclipse.org</prefix>
+                                    <url>https://${p2.username}:${p2.password}@${p2.mirror}</url>
+                                </p2Mirror>
+                            </p2Mirrors>
+                        </eclipse>
+                        <trimTrailingWhitespace />
+                        <endWithNewline />
+                        <importOrder />
+                        <removeUnusedImports />
+                    </java>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>
