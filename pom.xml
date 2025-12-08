@@ -17,7 +17,7 @@
         <!-- Wie in camel-spring-boot-dm / camel-spring-boot-starter (https://maven.apache.org/plugins/maven-dependency-plugin/examples/resolving-conflicts-using-the-dependency-tree.html) -->
         <spring.boot.version>3.5.4</spring.boot.version>
         <!-- Version muss mit der in den spring-boot-dependencies bereitgestellten Lombok-Version übereinstimmen -->
-        <lombok.version>1.18.38</lombok.version>
+        <lombok.version>1.18.42</lombok.version>
         <mapstructbinding.version>0.2.0</mapstructbinding.version>
         <logstash.encoder>8.1</logstash.encoder>
 
