@@ -74,6 +74,7 @@ jobs:
     needs: ["release-maven", "build-image", "create-github-release"]
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pull-requests: write
     steps:
       - name: Checkout repository
