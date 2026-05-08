@@ -78,6 +78,8 @@ jobs:
     steps:
       - name: Create PR to demo
         shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
         run: |
           # configure git
           git config --global user.email "github-actions@github.com"
