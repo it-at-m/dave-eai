@@ -75,8 +75,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
-      contents: write
     steps:
+      - name: Checkout code
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd # v5.0.1
+        with:
+          persist-credentials: true
       - name: Create PR to demo
         uses: peter-evans/create-pull-request@22a9089034f40e5a961c8808d113e2c98fb63676 # v7.0.11
         with:
