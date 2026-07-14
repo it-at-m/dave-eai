@@ -12,6 +12,7 @@ public class EaiApplication {
     /**
      * Startet die Anwendung.
      */
+    
     public static void main(final String[] args) {
         SpringApplication.run(EaiApplication.class, args);
     }
