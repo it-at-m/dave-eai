@@ -5,7 +5,7 @@
 
     <groupId>de.muenchen.dave</groupId>
     <artifactId>dave-eai</artifactId>
-    <version>10.0.0</version>
+    <version>10.0.1-SNAPSHOT</version>
     <name>DAVe-EAI</name>
     <description>Basic Enterprise Application Integration (EAI) von DAVe</description>
 
@@ -46,7 +46,7 @@
     <scm>
         <connection>scm:git:https://github.com/it-at-m/dave-eai.git</connection>
         <developerConnection>scm:git:https://github.com/it-at-m/dave-eai.git</developerConnection>
-      <tag>dave-eai-10.0.0</tag>
+      <tag>HEAD</tag>
     </scm>
 
     <dependencyManagement>
