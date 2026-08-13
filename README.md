@@ -37,7 +37,7 @@ Routenziel: `dave-backend-service GET /lade-auswertung-visum`
 Aufgabe: Durchleiten des Requests an das Backend und Rückgabe der JSON-Response des Backends an den Aufrufenden.
 
 ## Built with
-    Java 11
+    Java 21
 
 ## Contributing
 
