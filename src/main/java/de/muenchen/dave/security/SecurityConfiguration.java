@@ -25,8 +25,7 @@ public class SecurityConfiguration {
                         // allow access to /actuator/health/readiness for OpenShift Readiness Check
                         PathPatternRequestMatcher.withDefaults().matcher("/actuator/health/readiness"),
                         // allow access to /actuator/metrics for Prometheus monitoring in OpenShift
-                        PathPatternRequestMatcher.withDefaults().matcher("/actuator/metrics")
-                )
+                        PathPatternRequestMatcher.withDefaults().matcher("/actuator/metrics"))
                 .permitAll()
                 .anyRequest()
                 .denyAll());

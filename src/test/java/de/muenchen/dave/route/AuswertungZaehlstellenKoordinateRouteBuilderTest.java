@@ -3,10 +3,9 @@ package de.muenchen.dave.route;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
+import de.muenchen.dave.security.BackendTokenProvider;
 import java.io.File;
 import java.io.IOException;
-
-import de.muenchen.dave.security.BackendTokenProvider;
 import org.apache.camel.CamelContext;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
