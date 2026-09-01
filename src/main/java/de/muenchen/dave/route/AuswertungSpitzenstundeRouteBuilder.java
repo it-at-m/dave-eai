@@ -1,6 +1,7 @@
 package de.muenchen.dave.route;
 
 import de.muenchen.dave.domain.LadeAuswertungSpitzenstundeDTO;
+import de.muenchen.dave.security.BackendTokenProvider;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.ListJacksonDataFormat;
@@ -24,6 +25,12 @@ public class AuswertungSpitzenstundeRouteBuilder extends RouteBuilder {
 
     private final BindyCsvDataFormat csv = new BindyCsvDataFormat(LadeAuswertungSpitzenstundeDTO.class);
 
+    private final BackendTokenProvider backendTokenProvider;
+
+    public AuswertungSpitzenstundeRouteBuilder(BackendTokenProvider backendTokenProvider) {
+        this.backendTokenProvider = backendTokenProvider;
+    }
+
     @Override
     public void configure() {
 
@@ -33,6 +40,7 @@ public class AuswertungSpitzenstundeRouteBuilder extends RouteBuilder {
 
         // @formatter:off
         from("servlet:lade-auswertung-spitzenstunde")
+                .setHeader("Authorization", method(backendTokenProvider, "getBearerToken"))
                 .to("http://{{backend.uri}}/lade-auswertung-spitzenstunde?bridgeEndpoint=true&throwExceptionOnFailure=false")
                 .choice()
                     .when(header(Exchange.HTTP_RESPONSE_CODE).isLessThan(300))
