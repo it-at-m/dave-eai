@@ -12,8 +12,7 @@ public class NoSecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(final HttpSecurity http) {
-        http
-                .authorizeHttpRequests(request -> request.anyRequest().permitAll());
+        http.authorizeHttpRequests(request -> request.anyRequest().permitAll());
         return http.build();
     }
 
