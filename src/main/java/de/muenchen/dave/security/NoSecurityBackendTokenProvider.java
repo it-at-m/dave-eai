@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Profile("no-security")
-public class NoSecurityBackendTokenProvider implements TokenProvider{
+public class NoSecurityBackendTokenProvider implements TokenProvider {
 
     @Override
     public String getBearerToken(String clientRegistrationId) {
