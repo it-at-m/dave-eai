@@ -6,6 +6,7 @@ import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.ListJacksonDataFormat;
 import org.apache.camel.dataformat.bindy.csv.BindyCsvDataFormat;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -27,8 +28,14 @@ public class AuswertungSpitzenstundeRouteBuilder extends RouteBuilder {
 
     private final BackendTokenProvider backendTokenProvider;
 
-    public AuswertungSpitzenstundeRouteBuilder(BackendTokenProvider backendTokenProvider) {
+    private final String clientRegistrationId;
+
+    public AuswertungSpitzenstundeRouteBuilder(
+            BackendTokenProvider backendTokenProvider,
+            @Value("${dave.oauth2.client-registration-id}") final String clientRegistrationId
+    ) {
         this.backendTokenProvider = backendTokenProvider;
+        this.clientRegistrationId = clientRegistrationId;
     }
 
     @Override
@@ -40,7 +47,7 @@ public class AuswertungSpitzenstundeRouteBuilder extends RouteBuilder {
 
         // @formatter:off
         from("servlet:lade-auswertung-spitzenstunde")
-                .setHeader("Authorization", method(backendTokenProvider, "getBearerToken"))
+                .process(exchange -> exchange.getMessage().setHeader("Authorization", backendTokenProvider.getBearerToken(clientRegistrationId)))
                 .to("http://{{backend.uri}}/lade-auswertung-spitzenstunde?bridgeEndpoint=true&throwExceptionOnFailure=false")
                 .choice()
                     .when(header(Exchange.HTTP_RESPONSE_CODE).isLessThan(300))

@@ -39,7 +39,7 @@ class AuswertungSpitzenstundeRouteBuilderTest {
 
     @BeforeEach
     void setup() {
-        when(backendTokenProvider.getBearerToken()).thenReturn("Bearer dummy-token");
+        when(backendTokenProvider.getBearerToken("")).thenReturn("Bearer dummy-token");
     }
 
     @Test

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class BackendTokenProvider {
 
-    public static final String CLIENT_REGISTRATION_ID = "keycloak";
 
     private final OAuth2AuthorizedClientManager authorizedClientManager;
 
@@ -15,10 +14,10 @@ public class BackendTokenProvider {
         this.authorizedClientManager = authorizedClientManager;
     }
 
-    public String getBearerToken() {
+    public String getBearerToken(final String clientRegistrationId) {
         final var request = OAuth2AuthorizeRequest
-                .withClientRegistrationId(CLIENT_REGISTRATION_ID)
-                .principal(CLIENT_REGISTRATION_ID)
+                .withClientRegistrationId(clientRegistrationId)
+                .principal(clientRegistrationId)
                 .build();
 
         final var client = authorizedClientManager.authorize(request);

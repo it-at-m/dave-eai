@@ -2,6 +2,7 @@ package de.muenchen.dave.route;
 
 import de.muenchen.dave.security.BackendTokenProvider;
 import org.apache.camel.builder.RouteBuilder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,8 +12,14 @@ public class AuswertungVisumRouteBuilder extends RouteBuilder {
 
     private final BackendTokenProvider backendTokenProvider;
 
-    public AuswertungVisumRouteBuilder(BackendTokenProvider backendTokenProvider) {
+    private final String clientRegistrationId;
+
+    public AuswertungVisumRouteBuilder(
+            BackendTokenProvider backendTokenProvider,
+            @Value("${dave.oauth2.client-registration-id}") final String clientRegistrationId
+    ) {
         this.backendTokenProvider = backendTokenProvider;
+        this.clientRegistrationId = clientRegistrationId;
     }
 
     @Override
@@ -23,7 +30,7 @@ public class AuswertungVisumRouteBuilder extends RouteBuilder {
         exceptionHandling();
 
         from("servlet:lade-auswertung-visum")
-                .setHeader("Authorization", method(backendTokenProvider, "getBearerToken"))
+                .process(exchange -> exchange.getMessage().setHeader("Authorization", backendTokenProvider.getBearerToken(clientRegistrationId)))
                 .to("http://{{backend.uri}}/lade-auswertung-visum?bridgeEndpoint=true&throwExceptionOnFailure=false");
     }
 
