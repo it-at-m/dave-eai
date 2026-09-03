@@ -1,11 +1,13 @@
 package de.muenchen.dave.security;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.oauth2.client.OAuth2AuthorizeRequest;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClientManager;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BackendTokenProvider {
+@Profile("!no-security")
+public class BackendTokenProvider implements TokenProvider {
 
     private final OAuth2AuthorizedClientManager authorizedClientManager;
 
