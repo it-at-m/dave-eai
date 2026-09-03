@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class BackendTokenProvider {
 
-
     private final OAuth2AuthorizedClientManager authorizedClientManager;
 
     public BackendTokenProvider(final OAuth2AuthorizedClientManager authorizedClientManager) {

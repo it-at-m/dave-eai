@@ -32,8 +32,7 @@ public class AuswertungSpitzenstundeRouteBuilder extends RouteBuilder {
 
     public AuswertungSpitzenstundeRouteBuilder(
             BackendTokenProvider backendTokenProvider,
-            @Value("${dave.oauth2.client-registration-id}") final String clientRegistrationId
-    ) {
+            @Value("${dave.oauth2.client-registration-id}") final String clientRegistrationId) {
         this.backendTokenProvider = backendTokenProvider;
         this.clientRegistrationId = clientRegistrationId;
     }
