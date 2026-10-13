@@ -1,7 +1,9 @@
 package de.muenchen.dave.route;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
+import de.muenchen.dave.security.BackendTokenProvider;
 import java.io.File;
 import java.io.IOException;
 import org.apache.camel.CamelContext;
@@ -10,10 +12,12 @@ import org.apache.camel.ProducerTemplate;
 import org.apache.camel.builder.ExchangeBuilder;
 import org.apache.camel.test.spring.junit5.CamelSpringBootTest;
 import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 @SpringBootTest()
 @ActiveProfiles(profiles = { "unittest" })
@@ -29,6 +33,14 @@ class AuswertungZaehlstellenKoordinateRouteBuilderTest {
 
     @Autowired
     private CamelContext camelContext;
+
+    @MockitoBean
+    private BackendTokenProvider backendTokenProvider;
+
+    @BeforeEach
+    void setup() {
+        when(backendTokenProvider.getBearerToken("")).thenReturn("Bearer dummy-token");
+    }
 
     @Test
     void testJsonToCsv() throws IOException {

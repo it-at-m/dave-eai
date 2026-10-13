@@ -1,2 +1,6 @@
 backend:
   uri: localhost:8082
+
+dave:
+  oauth2:
+    client-registration-id: keycloak

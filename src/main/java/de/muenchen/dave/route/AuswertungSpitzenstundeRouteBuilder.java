@@ -1,10 +1,12 @@
 package de.muenchen.dave.route;
 
 import de.muenchen.dave.domain.LadeAuswertungSpitzenstundeDTO;
+import de.muenchen.dave.security.TokenProvider;
 import org.apache.camel.Exchange;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.jackson.ListJacksonDataFormat;
 import org.apache.camel.dataformat.bindy.csv.BindyCsvDataFormat;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,6 +26,17 @@ public class AuswertungSpitzenstundeRouteBuilder extends RouteBuilder {
 
     private final BindyCsvDataFormat csv = new BindyCsvDataFormat(LadeAuswertungSpitzenstundeDTO.class);
 
+    private final TokenProvider backendTokenProvider;
+
+    private final String clientRegistrationId;
+
+    public AuswertungSpitzenstundeRouteBuilder(
+            TokenProvider backendTokenProvider,
+            @Value("${dave.oauth2.client-registration-id}") final String clientRegistrationId) {
+        this.backendTokenProvider = backendTokenProvider;
+        this.clientRegistrationId = clientRegistrationId;
+    }
+
     @Override
     public void configure() {
 
@@ -33,6 +46,12 @@ public class AuswertungSpitzenstundeRouteBuilder extends RouteBuilder {
 
         // @formatter:off
         from("servlet:lade-auswertung-spitzenstunde")
+                .process(exchange -> {
+                    String token = backendTokenProvider.getBearerToken(clientRegistrationId);
+                    if (token != null) {
+                        exchange.getMessage().setHeader("Authorization", token);
+                    }
+                })
                 .to("http://{{backend.uri}}/lade-auswertung-spitzenstunde?bridgeEndpoint=true&throwExceptionOnFailure=false")
                 .choice()
                     .when(header(Exchange.HTTP_RESPONSE_CODE).isLessThan(300))
